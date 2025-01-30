@@ -65,7 +65,7 @@ ng serve -o
 
 El frontend está desplegado en Netlify. Puedes acceder a la aplicación en el siguiente enlace:
 
-[Tenis Progres en Netlify](https://main--tenis-progress.netlify.app/home)
+[Tenis Progres en Netlify](https://tenis-progress.netlify.app/home)
 
 por ahora no esta implementado el backend, por lo que no se podra acceder a la aplicacion.
 
