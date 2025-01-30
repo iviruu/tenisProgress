@@ -1,5 +1,5 @@
 export const environment = {
 
-    endpoint: 'http://localhost:3000/'
+    endpoint: 'http://backtennis-production.up.railway.app/'
 
 };

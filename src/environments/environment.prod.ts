@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    endpoint: 'http://back-drab-ten.vercel.app/'
+    endpoint: 'http://backtennis-production.up.railway.app/'
 };
