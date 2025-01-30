@@ -26,6 +26,7 @@ export class UserService {
   }
 
   getUser():Observable<User>{
+    console.log('Cookies disponibles:', document.cookie);
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
       withCredentials: true // Asegura que las cookies se envíen con la solicitud
     });
