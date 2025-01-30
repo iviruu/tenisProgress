@@ -30,7 +30,7 @@
     border-top: 1px solid #E1BE1D;
   }
   .img-fluid{
-    width: 17rem;
+    width: auto;
     height:17rem;
   }
   .font-bebas-neue-300 {
