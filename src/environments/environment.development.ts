@@ -1,5 +1,4 @@
 export const environment = {
-
-    endpoint: 'http://backtennis-production.up.railway.app/'
-
+  production: false,
+  apiUrl: 'https://backtennis-production.up.railway.app'
 };
