@@ -29,9 +29,7 @@ export class UserService {
   getUser():Observable<User>{
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .set('Cache-Control', 'no-cache')
-      .set('Pragma', 'no-cache');
+      .set('Content-Type', 'application/json');
 
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
       withCredentials: true,
