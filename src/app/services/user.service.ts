@@ -27,10 +27,22 @@ export class UserService {
   }
 
   getUser():Observable<User>{
-    console.log('Cookies disponibles:', document.cookie);
+    console.log('Haciendo petición a:', this.myAppUrl + this.myApiUrl);
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
       withCredentials: true
-    });
+    }).pipe(
+      tap({
+        next: (response) => console.log('Respuesta exitosa:', response),
+        error: (error) => {
+          console.log('Error en la petición:', {
+            status: error.status,
+            message: error.error?.message,
+            code: error.error?.code,
+            fullError: error.error
+          });
+        }
+      })
+    );
   }
 
   getAlumnosByProfesor(id:number):Observable<ListaAlumnos>{
