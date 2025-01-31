@@ -29,19 +29,8 @@ export class UserService {
   getUser():Observable<User>{
     console.log('Cookies disponibles:', document.cookie);
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
-      withCredentials: true,
-      observe: 'response'  // Esto nos permitirá ver la respuesta completa
-    }).pipe(
-      tap(response => {
-        console.log('URL completa:', this.myAppUrl + this.myApiUrl);
-        console.log('Headers de la respuesta:', response.headers.keys());
-      }),
-      map(response => response.body as User),
-      catchError(error => {
-        console.error('Error completo:', error);
-        throw error;
-      })
-    );
+      withCredentials: true
+    });
   }
 
   getAlumnosByProfesor(id:number):Observable<ListaAlumnos>{
