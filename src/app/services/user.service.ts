@@ -40,6 +40,9 @@ export class UserService {
             code: error.error?.code,
             fullError: error.error
           });
+          if (error.error?.code === -50) {
+            console.log('No hay token. Verificar si el login fue exitoso');
+          }
         }
       })
     );
