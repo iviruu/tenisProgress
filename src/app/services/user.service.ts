@@ -27,24 +27,16 @@ export class UserService {
   }
 
   getUser():Observable<User>{
-    const allCookies = document.cookie.split(';').reduce((cookies: { [key: string]: string }, cookie) => {
-      const [name, value] = cookie.split('=').map(c => c.trim());
-      return { ...cookies, [name]: value };
-    }, {});
-    
-    console.log('=== Inicio de petición getUser ===');
-    console.log('URL:', this.myAppUrl + this.myApiUrl);
-    console.log('Cookies disponibles:', allCookies);
-    console.log('Token cookie:', allCookies['token']);
-    
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json');
+      .set('Content-Type', 'application/json')
+      .set('Cache-Control', 'no-cache')
+      .set('Pragma', 'no-cache');
 
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
       withCredentials: true,
-      observe: 'response',
-      headers
+      headers,
+      observe: 'response'
     }).pipe(
       tap({
         next: (response) => {
