@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
@@ -27,24 +27,41 @@ export class UserService {
   }
 
   getUser():Observable<User>{
-    console.log('Haciendo petición a:', this.myAppUrl + this.myApiUrl);
+    const allCookies = document.cookie.split(';').reduce((cookies: { [key: string]: string }, cookie) => {
+      const [name, value] = cookie.split('=').map(c => c.trim());
+      return { ...cookies, [name]: value };
+    }, {});
+    
+    console.log('=== Inicio de petición getUser ===');
+    console.log('URL:', this.myAppUrl + this.myApiUrl);
+    console.log('Cookies disponibles:', allCookies);
+    console.log('Token cookie:', allCookies['token']);
+    
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json');
+
     return this.http.get<User>(this.myAppUrl + this.myApiUrl , {
-      withCredentials: true
+      withCredentials: true,
+      observe: 'response',
+      headers
     }).pipe(
       tap({
-        next: (response) => console.log('Respuesta exitosa:', response),
+        next: (response) => {
+          console.log('=== Respuesta exitosa ===');
+          console.log('Headers:', response.headers.keys());
+          console.log('Body:', response.body);
+        },
         error: (error) => {
-          console.log('Error en la petición:', {
-            status: error.status,
-            message: error.error?.message,
-            code: error.error?.code,
-            fullError: error.error
-          });
-          if (error.error?.code === -50) {
-            console.log('No hay token. Verificar si el login fue exitoso');
-          }
+          console.log('=== Error en la petición ===');
+          console.log('Status:', error.status);
+          console.log('Message:', error.error?.message);
+          console.log('Code:', error.error?.code);
+          console.log('Request URL:', error.url);
+          console.log('Request Headers:', error.headers?.keys());
         }
-      })
+      }),
+      map(response => response.body as User)
     );
   }
 
